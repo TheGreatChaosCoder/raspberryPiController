@@ -22,12 +22,19 @@ class Controller:
         "Please use command 'i2cdetect -y 1' to check the I2C address! \n"
         "Program Exit. \n");
         sys.exit()
-        
-   def getXValue(self):
+       
+  def getXValue(self):
     return self.adc.analogRead(1)
     
-   def getYValue(self):
+  def getYValue(self):
     return self.adc.analogRead(0)
     
-   def getZValue(self):
+  def getZValue(self):
     return GPIO.input(self.zPin)
+  
+  def destroy(self):
+    self.adc.close()
+    GPIO.cleanup()
+    
+  def __del__(self):
+    self.destroy()
